@@ -13,16 +13,22 @@
     &__input {
         padding: 0;
         .ant-input-prefix {
-            font-size: 0em + 22px / $defaultFontSize;
+            position: absolute;
+            height: 100%;
+            margin-left: 10px;
+            z-index: 1;
+            span {
+                font-size: 0em + 22px / $defaultFontSize;
+            }
         }
 
         input {
             font-size: 0em + 20px / $defaultFontSize;
-            padding: 5px 5px 5px 10px !important;
+            padding: 5px 5px 5px 40px !important;
             &:focus{
                 border-color: $primary-color;
                 box-shadow: none;
-            }
+            }            
         }
     }
 
