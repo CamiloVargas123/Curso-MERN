@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import { Button } from "antd";
 import {MenuFoldOutlined, MenuUnfoldOutlined, PoweroffOutlined} from '@ant-design/icons';
-import Logo from "../../../assets/img/logo-white.png";
+import Logo from "../../../assets/img/logo1.png";
 
 import './MenuTop.scss';
 
