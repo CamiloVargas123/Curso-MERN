@@ -56,7 +56,28 @@ export default function RegisterForm() {
 
     const register = e => {
         e.preventDefault();
-        console.log(formValid);
+        const {email, password, repeatPassword, privacyPolity} = formValid;
+
+        const emailValue = inputs.email;
+        const passwordValue = inputs.password;
+        const repeatPasswordValue = inputs.repeatPassword;
+        const privacyPolityValue = inputs.privacyPolity;
+
+        if(!emailValue || !passwordValue || !repeatPasswordValue || !privacyPolityValue){
+            notification['error']({
+                message: "Todos los campos son obligatorios"
+            })
+        }else {
+            if(passwordValue != repeatPasswordValue){
+                notification['error']({
+                    message: "Las contraseñas no coinciden"
+                })
+            }else {
+                notification['success']({
+                    message: "Cuanta registrada con exito"
+                })
+            }
+        }
     }
 
     return (
