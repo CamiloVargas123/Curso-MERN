@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Form, Input, Button, Checkbox, notification} from "antd";
 import {UserOutlined, LockOutlined } from '@ant-design/icons';
 import {emailValidation, minLengthValidation} from "../../../utils/formValidation";
+import {singUpApi} from "../../../api/user";
 
 import "./RegisterForm.scss";
 
@@ -73,9 +74,8 @@ export default function RegisterForm() {
                     message: "Las contraseñas no coinciden"
                 })
             }else {
-                notification['success']({
-                    message: "Cuanta registrada con exito"
-                })
+                const result = singUpApi(inputs);
+                //console.log(inputs);
             }
         }
     }
