@@ -51,7 +51,7 @@
                 &:hover {
                     border-top: 4px solid $primary-color !important;
                     span {
-                        color: $primary-color !important;
+                        color: $primary-color!important;
                     }
                 }
                 &:before {
@@ -68,12 +68,12 @@
             }
             .ant-tabs-tab-active {
                 color: $primary-color !important;
-                border-top: 4px solid $primary-color !important;
+                border-top: 4px solid $primary-color-hover !important;
                 border-radius: 0 !important;
                 border-right: 0 !important;
                 border-left: 0 !important;
                 span {
-                    color: $primary-color !important;
+                    color: $primary-color-hover !important;
                 }
             }
             .ant-tabs-content {

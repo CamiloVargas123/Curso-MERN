@@ -22,7 +22,8 @@ export function emailValidation(inputData) {
     if(resultValidation) {
         inputData.classList.add("success");
         return true;
-    }else {
+    }
+    else {
         inputData.classList.add("error");
         return false;
     }
