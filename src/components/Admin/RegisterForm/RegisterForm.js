@@ -69,7 +69,7 @@ export default function RegisterForm() {
                 message: "Todos los campos son obligatorios"
             })
         }else {
-            if(passwordValue != repeatPasswordValue){
+            if(passwordValue !== repeatPasswordValue){
                 notification['error']({
                     message: "Las contraseñas no coinciden"
                 })
