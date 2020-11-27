@@ -9,8 +9,19 @@ export function singUpApi(data){
             "Content-Type": "application/json"
         }
     }
-    console.log(data);
-    fetch(url, params).then(response => {
-        console.log(response);
+    
+    
+    return fetch(url, params).then(response => {
+        return response.json();
+    }).then(result => {
+        if(result.user){
+            return true;
+        }else{
+            return false;
+        }
+    }).catch(e => {
+        return e.message;
     })
+
+    
 }
