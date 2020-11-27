@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import { Button } from "antd";
 import {MenuFoldOutlined, MenuUnfoldOutlined, PoweroffOutlined} from '@ant-design/icons';
-import Logo from "../../../assets/img/logo-white.png";
+import {logo1} from "../../../assets/img/index";
 
 import './MenuTop.scss';
 
@@ -15,7 +15,7 @@ export default function MenuTop(props) {
                 <Link to={"/admin"}>
                     <img 
                     className="menu-top__left-logo"
-                    src={Logo}
+                    src={logo1}
                     alt="Logo"
                     />
                 </Link>                

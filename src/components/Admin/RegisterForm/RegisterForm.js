@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Form, Input, Button, Checkbox, notification} from "antd";
 import {UserOutlined, LockOutlined } from '@ant-design/icons';
 import {emailValidation, minLengthValidation} from "../../../utils/formValidation";
+import {singUpApi} from "../../../api/user";
 
 import "./RegisterForm.scss";
 
@@ -56,7 +57,27 @@ export default function RegisterForm() {
 
     const register = e => {
         e.preventDefault();
-        console.log(formValid);
+        const {email, password, repeatPassword, privacyPolity} = formValid;
+
+        const emailValue = inputs.email;
+        const passwordValue = inputs.password;
+        const repeatPasswordValue = inputs.repeatPassword;
+        const privacyPolityValue = inputs.privacyPolity;
+
+        if(!emailValue || !passwordValue || !repeatPasswordValue || !privacyPolityValue){
+            notification['error']({
+                message: "Todos los campos son obligatorios"
+            })
+        }else {
+            if(passwordValue != repeatPasswordValue){
+                notification['error']({
+                    message: "Las contraseñas no coinciden"
+                })
+            }else {
+                const result = singUpApi(inputs);
+                //console.log(inputs);
+            }
+        }
     }
 
     return (
