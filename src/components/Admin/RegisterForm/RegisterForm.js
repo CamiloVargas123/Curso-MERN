@@ -4,7 +4,7 @@ import {UserOutlined, LockOutlined } from '@ant-design/icons';
 import {emailValidation, minLengthValidation} from "../../../utils/formValidation";
 import {singUpApi} from "../../../api/user";
 
-import "./RegisterForm.scss";
+import "../Form.scss";
 
 export default function RegisterForm() {
     const [inputs, setInputs] = useState({
