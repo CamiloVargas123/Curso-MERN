@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Form, Input, Button, Checkbox, notification} from "antd";
 import {UserOutlined, LockOutlined } from '@ant-design/icons';
 import {emailValidation, minLengthValidation} from "../../../utils/formValidation";
-import {singUpApi} from "../../../api/user";
+import {signUpApi} from "../../../api/user";
 
 import "../Form.scss";
 
@@ -75,7 +75,7 @@ export default function RegisterForm() {
                     message: "Las contraseñas no coinciden"
                 })
             }else {
-                const result = await singUpApi(inputs);
+                const result = await signUpApi(inputs);
                 if(!result){
                     notification["error"]({
                         message: "Email ya se encuentra en uso"

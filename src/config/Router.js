@@ -11,7 +11,7 @@ import Home from "../pages/Home";
 import Contact from "../pages/Contact";
 
 // Other
-import Error4040 from "../pages/Error404";
+import Error404 from "../pages/Error404";
 
 
 const router = [
@@ -31,7 +31,7 @@ const router = [
                 exact: true
             },
             {
-                component: Error4040
+                component: Error404
             }
         ]
     },
@@ -51,7 +51,7 @@ const router = [
                 exact: true
             },
             {
-                component: Error4040
+                component: Error404
             }
         ]
     }
