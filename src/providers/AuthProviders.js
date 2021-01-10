@@ -20,7 +20,7 @@ export default function AuthProvider(props) {
 
 function checkUserLogin(SetUser) {
     const accessToken = getAccessTokenApi();
-
+        
     if(!accessToken){
         const refreshToken = getRefreshTokenApi();
 
@@ -33,6 +33,7 @@ function checkUserLogin(SetUser) {
         }else {
             refreshAccessTokenApi(refreshToken);
         }
+        
 
     }else {
         SetUser({

@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 
 export function getAccessTokenApi(){
     const accessToken = localStorage.getItem(ACCESS_TOKEN);
-
+    
     if(!accessToken || accessToken === "null"){
         return null;
     }
