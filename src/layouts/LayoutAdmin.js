@@ -52,7 +52,9 @@ export default function LayoutAdmin(props){
                 </Layout>
             </Layout>
         )
-    }    
+    }
+    
+    return null;
 }
 
 function LoadRoutes({routes}){
