@@ -5,6 +5,7 @@ import LayoutBasic from "../layouts/LayoutBasic";
 //Admin pages
 import AdminHome from "../pages/admin";
 import AdminSingIn from "../pages/admin/SignIn";
+import AdminUsers from "../pages/admin/Users";
 
 //Pages
 import Home from "../pages/Home";
@@ -28,6 +29,11 @@ const router = [
             {
                 path: "/admin/login",
                 component: AdminSingIn,
+                exact: true
+            },
+            {
+                path: "/admin/users",
+                component: AdminUsers,
                 exact: true
             },
             {
