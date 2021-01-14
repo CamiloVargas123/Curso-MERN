@@ -18,7 +18,7 @@ function MenuSider(props){
                 </Menu.Item>
                 <Menu.Item key="/admin/users" icon={<UserOutlined />}>
                     <Link to={"/admin/users"} >
-                        <span className="nav-text">Usuarios</span>
+                        <span className="nav-text">Users</span>
                     </Link>
                 </Menu.Item>
             </Menu>
