@@ -8,4 +8,14 @@
         padding: 10px;
         margin-bottom: 20px;
     }
+
+    .form-edit {
+        .ant-input-prefix {
+            color: rgba(0,0,0, 0.25);
+            margin-right: 6px;
+        }
+        .btn-submit {
+            width: 100%;
+        }
+    }
 }
