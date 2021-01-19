@@ -9,7 +9,7 @@ import {noAvatar} from "../../../../assets/img";
 import "./EditUserForm.scss";
 
 export default function EditUserForm(props) {
-    const {user} = props;
+    const {user, setIsVisibleModal, setReloadUsers} = props;
     const [avatar, setAvatar] = useState(null);
     const [userData, setUserData] = useState({});
 
@@ -58,11 +58,15 @@ export default function EditUserForm(props) {
                 userUpdate.avatar = reponse.avatarName;
                 updateUserApi(token, userUpdate, user._id).then(result => {
                     notification["success"]({message: result.message});
+                    setIsVisibleModal(false);
+                    setReloadUsers(true);
                 });
             });
         }else{
             updateUserApi(token, userUpdate, user._id).then(result => {
                 notification["success"]({message: result.message});
+                setIsVisibleModal(false);
+                setReloadUsers(true);
             });
         }
     }
