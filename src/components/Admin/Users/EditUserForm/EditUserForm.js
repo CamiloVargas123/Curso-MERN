@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useCallback} from "react";
-import {Avatar, Form, Input, Select, Button, Row, Col} from "antd";
+import {Avatar, Form, Input, Select, Button, Row, Col, notification, Result} from "antd";
 import {UserOutlined, MailOutlined, LockOutlined} from "@ant-design/icons";
 import {useDropzone} from "react-dropzone";
-
-import {getAvatarApi} from "../../../../api/user";
+import {getAccessTokenApi} from "../../../../api/auth";
+import {getAvatarApi, uploadAvatarApi, updateUserApi} from "../../../../api/user";
 import {noAvatar} from "../../../../assets/img";
 
 import "./EditUserForm.scss";
@@ -12,10 +12,6 @@ export default function EditUserForm(props) {
     const {user} = props;
     const [avatar, setAvatar] = useState(null);
     const [userData, setUserData] = useState({});
-
-    const updateUser = e => {
-        console.log(userData);
-    }
 
     useEffect(() => {
         setUserData({
@@ -42,6 +38,34 @@ export default function EditUserForm(props) {
             setUserData({...userData, avatar: avatar.file})
         }
     }, [avatar]);
+
+    const updateUser = e => {
+        const token = getAccessTokenApi();
+        let userUpdate = userData;
+
+        if(userUpdate.password || userUpdate.repeatPassword){
+            if(userUpdate.password !== userUpdate.repeatPassword){
+                notification["error"]({message: "Las contraseñas no coinciden"})
+            }
+            return;
+        }
+        if(!userUpdate.name || !userUpdate.lastname || !userUpdate.email){
+            notification["error"]({message: "Nombre, apellido y correo son obligatorios"});
+            return;
+        }
+        if(typeof userUpdate.avatar === "Object"){
+            uploadAvatarApi(token, userUpdate.avatar, user._id).then(reponse => {
+                userUpdate.avatar = reponse.avatarName;
+                updateUserApi(token, userUpdate, user._id).then(result => {
+                    notification["success"]({message: result.message});
+                });
+            });
+        }else{
+            updateUserApi(token, userUpdate, user._id).then(result => {
+                notification["success"]({message: result.message});
+            });
+        }
+    }
 
     return (
         <div className="edit-user-form">
