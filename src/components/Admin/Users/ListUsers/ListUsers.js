@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
-import {Switch, List, Avatar, Button} from "antd";
+import {Switch, List, Avatar, Button, notification} from "antd";
 import {EditOutlined, StopOutlined, DeleteOutlined, CheckOutlined} from "@ant-design/icons";
 import {noAvatar} from "../../../../assets/img";
 import Modal from "../../../Modal";
 import EditUserForm from "../EditUserForm";
-import {getAvatarApi} from "../../../../api/user";
+import {getAvatarApi, activateUserApi} from "../../../../api/user";
+import {getAccessTokenApi} from "../../../../api/auth";
 
 import "./ListUsers.scss";
 
@@ -25,7 +26,7 @@ export default function ListUsers(props) {
 
             {viewUsersActive ? 
             <UsersActive usersActive={usersActive} setIsVisibleModal={setIsVisibleModal} setModalTitle={setModalTitle} setModalContent={setModalContent} setReloadUsers={setReloadUsers} /> : 
-            <UsersInactive usersInactive={usersInactive} />}
+            <UsersInactive usersInactive={usersInactive} setReloadUsers={setReloadUsers} />}
 
             <Modal title={modalTitle} isVisible={isVisibleModal} setIsVisible={setIsVisibleModal}>
                 {modalContent}
@@ -47,12 +48,12 @@ function UsersActive(props) {
             className="users-active"
             itemLayout="horizontal"
             dataSource={usersActive}
-            renderItem={user => <UserActive user={user} editUser={editUser} />}
+            renderItem={user => <UserActive user={user} editUser={editUser} setReloadUsers={setReloadUsers} />}
         />
     )
 }
 function UserActive(props){
-    const {user, editUser} = props;
+    const {user, editUser, setReloadUsers} = props;
     const [avatar, setAvatar] = useState(null);
 
     useEffect(() => {
@@ -63,12 +64,23 @@ function UserActive(props){
         }else {
             setAvatar(null);
         }
-    }, [user])
+    }, [user]);
+
+    const desactivateUser = () => {
+        const accessToken = getAccessTokenApi();
+
+        activateUserApi(accessToken, user._id, false).then(response => {
+            notification["success"]({message: response});
+            setReloadUsers(true);
+        }).catch(err => {
+            notification["error"]({message: err});
+        })
+    }
 
     return (
         <List.Item actions={[
             <Button type="primary" onClick={() => editUser(user)} icon={<EditOutlined />} />,
-            <Button type="danger" onClick={() => console.log("desactivar")} icon={<StopOutlined />} />,
+            <Button type="danger" onClick={desactivateUser} icon={<StopOutlined />} />,
             <Button type="danger" onClick={() => console.log("Eliminar")} icon={<DeleteOutlined />} />
         ]}>
             <List.Item.Meta 
@@ -81,19 +93,19 @@ function UserActive(props){
 }
 
 function UsersInactive(props) {
-    const {usersInactive} = props;
+    const {usersInactive, setReloadUsers} = props;
     
     return (
         <List
             className="users-active"
             itemLayout="horizontal"
             dataSource={usersInactive}
-            renderItem={user => <UserInactive user={user} />}
+            renderItem={user => <UserInactive user={user} setReloadUsers={setReloadUsers} />}
         />
     )
 }
 function UserInactive(props){
-    const {user} = props;
+    const {user, setReloadUsers} = props;
     const [avatar, setAvatar] = useState(null);
 
     useEffect(() => {
@@ -104,11 +116,22 @@ function UserInactive(props){
         }else {
             setAvatar(null);
         }
-    }, [user])
+    }, [user]);
+
+    const activatedUser = () => {
+        const accessToken = getAccessTokenApi();
+
+        activateUserApi(accessToken, user._id, true).then(response => {
+            notification["success"]({message: response});
+            setReloadUsers(true);
+        }).catch(err => {
+            notification["error"]({message: err});
+        })
+    }
 
     return (
         <List.Item actions={[
-            <Button type="primary" onClick={() => console.log("Activar usuario")} icon={<CheckOutlined />} />,
+            <Button type="primary" onClick={activatedUser} icon={<CheckOutlined />} />,
             <Button type="danger" onClick={() => console.log("Eliminar")} icon={<DeleteOutlined />} />
         ]}>
             <List.Item.Meta 
