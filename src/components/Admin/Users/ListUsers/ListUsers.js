@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
-import {Switch, List, Avatar, Button, notification} from "antd";
-import {EditOutlined, StopOutlined, DeleteOutlined, CheckOutlined} from "@ant-design/icons";
+import {Switch, List, Avatar, Button, notification, Modal as ModalAntd} from "antd";
+import {EditOutlined, StopOutlined, DeleteOutlined, CheckOutlined, WarningOutlined} from "@ant-design/icons";
 import {noAvatar} from "../../../../assets/img";
 import Modal from "../../../Modal";
 import EditUserForm from "../EditUserForm";
-import {getAvatarApi, activateUserApi} from "../../../../api/user";
+import {getAvatarApi, activateUserApi, deleteUserApi} from "../../../../api/user";
 import {getAccessTokenApi} from "../../../../api/auth";
 
 import "./ListUsers.scss";
@@ -16,6 +16,8 @@ export default function ListUsers(props) {
     const [isVisibleModal, setIsVisibleModal] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
     const [modalContent, setModalContent] = useState(null);
+
+    
 
     return (
         <div className="list-users">
@@ -77,11 +79,32 @@ function UserActive(props){
         })
     }
 
+    const showDeleteConfirm = () => {
+        const accessToken = getAccessTokenApi();
+
+        ModalAntd.confirm({
+            title: "Eliminando usuario",
+            icon: <WarningOutlined />,
+            content: `¿Estas seguro que deseas eliminar a ${user.email}?`,
+            okText: 'Eliminar',
+            okType: "danger",
+            cancelText: 'Cancelar',
+            onOk(){
+                deleteUserApi(accessToken, user._id).then(response => {
+                    notification["success"]({message: response});
+                    setReloadUsers(true);
+                }).catch(err => {
+                    notification["error"]({message: err});
+                })
+            }
+        })
+    }
+
     return (
         <List.Item actions={[
             <Button type="primary" onClick={() => editUser(user)} icon={<EditOutlined />} />,
             <Button type="danger" onClick={desactivateUser} icon={<StopOutlined />} />,
-            <Button type="danger" onClick={() => console.log("Eliminar")} icon={<DeleteOutlined />} />
+            <Button type="danger" onClick={showDeleteConfirm} icon={<DeleteOutlined />} />
         ]}>
             <List.Item.Meta 
                 avatar={<Avatar src={avatar ? avatar : noAvatar} />} 
@@ -129,10 +152,31 @@ function UserInactive(props){
         })
     }
 
+    const showDeleteConfirm = () => {
+        const accessToken = getAccessTokenApi();
+
+        ModalAntd.confirm({
+            title: "Eliminando usuario",
+            icon: <WarningOutlined />,
+            content: `¿Estas seguro que deseas eliminar a ${user.email}?`,
+            okText: 'Eliminar',
+            okType: "danger",
+            cancelText: 'Cancelar',
+            onOk(){
+                deleteUserApi(accessToken, user._id).then(response => {
+                    notification["success"]({message: response});
+                    setReloadUsers(true);
+                }).catch(err => {
+                    notification["error"]({message: err});
+                })
+            }
+        })
+    }
+
     return (
         <List.Item actions={[
             <Button type="primary" onClick={activatedUser} icon={<CheckOutlined />} />,
-            <Button type="danger" onClick={() => console.log("Eliminar")} icon={<DeleteOutlined />} />
+            <Button type="danger" onClick={showDeleteConfirm} icon={<DeleteOutlined />} />
         ]}>
             <List.Item.Meta 
                 avatar={<Avatar src={avatar ? avatar : noAvatar} />} 

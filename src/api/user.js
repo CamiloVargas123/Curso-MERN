@@ -112,8 +112,8 @@ export function getAvatarApi(avatarName){
     })
 }
 
-export function updateUserApi(token, user, userID){
-    const url = `${BASE_PATH}/${API_VERSION}/update-user/${userID}`;
+export function updateUserApi(token, user, userId){
+    const url = `${BASE_PATH}/${API_VERSION}/update-user/${userId}`;
     const params = {
         method: "PUT",
         body: JSON.stringify(user),
@@ -151,5 +151,24 @@ export function activateUserApi(token, userId, status){
         return result.message;
     }).catch(err => {
         return err.message
+    })
+}
+
+export function deleteUserApi(token, userId){
+    const url = `${BASE_PATH}/${API_VERSION}/delete-user/${userId}`;
+    const params = {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: token
+        }
+    }
+
+    return fetch(url, params).then(response => {
+        return response.json();
+    }).then(result => {
+        return result.message;
+    }).catch(err => {
+        return err.message;
     })
 }
