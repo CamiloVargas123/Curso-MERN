@@ -11,13 +11,15 @@ export default function RegisterForm() {
         email: "",
         password: "",
         repeatPassword: "",
-        privacyPolity: false
+        privacyPolity: false,
+        active: false
     });
     const [formValid, setFormValid] = useState({
         email: false,
         password: false,
         repeatPassword: false,
-        privacyPolity: false
+        privacyPolity: false,
+        active: false
     })
 
     const changeForm = e => {
@@ -74,7 +76,7 @@ export default function RegisterForm() {
                     message: "Las contraseñas no coinciden"
                 })
             }else {
-                const result = await signUpApi(inputs);
+                const result = await signUpApi(null, inputs, "");
                 if(!result){
                     notification["error"]({
                         message: "Email ya se encuentra en uso"

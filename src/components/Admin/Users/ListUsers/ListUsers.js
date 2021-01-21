@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Switch, List, Avatar, Button, notification, Modal as ModalAntd} from "antd";
-import {EditOutlined, StopOutlined, DeleteOutlined, CheckOutlined, WarningOutlined} from "@ant-design/icons";
+import {EditOutlined, StopOutlined, DeleteOutlined, CheckOutlined, WarningOutlined, UserAddOutlined} from "@ant-design/icons";
 import {noAvatar} from "../../../../assets/img";
 import Modal from "../../../Modal";
 import EditUserForm from "../EditUserForm";
@@ -36,14 +36,23 @@ export default function ListUsers(props) {
                 })
             }
         })
-    }    
+    }
+
+    const addUserModal = () => {
+        setIsVisibleModal(true);
+        setModalTitle("Creando nuevo usuario");
+        setModalContent(<h1>Creando user</h1>);
+    }
 
     return (
         <div className="list-users">
-            <div className="list-users__switch">
-                <Switch defaultChecked onChange={() => setViewUsersActive(!viewUsersActive)} />
-                <span> {viewUsersActive  ? "Usuarios Activos" : "Usuarios Inactivos"} </span>
-            </div>
+            <div className="list-users__header">
+                <div className="list-users__header-switch">
+                    <Switch defaultChecked onChange={() => setViewUsersActive(!viewUsersActive)} />
+                    <span> {viewUsersActive  ? "Usuarios Activos" : "Usuarios Inactivos"} </span>
+                </div>
+                <Button type="primary" onClick={addUserModal} icon={<UserAddOutlined />}>Crear Usuario</Button>
+            </div>            
 
             {viewUsersActive ? 
             <UsersActive usersActive={usersActive} setIsVisibleModal={setIsVisibleModal} setModalTitle={setModalTitle} setModalContent={setModalContent} setReloadUsers={setReloadUsers} showDeleteConfirm={showDeleteConfirm} /> : 

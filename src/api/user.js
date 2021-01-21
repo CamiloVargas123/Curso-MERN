@@ -1,15 +1,16 @@
 import {BASE_PATH, API_VERSION} from "./config";
 
-export function signUpApi(data){
-    const url = `${BASE_PATH}/${API_VERSION}/sign-up`;
+export function signUpApi(token, data, admin){
+    const url = `${BASE_PATH}/${API_VERSION}/sign-up${admin}`;
     const params = {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: token
         }
     }
-    
+
     
     return fetch(url, params).then(response => {
         return response.json();
