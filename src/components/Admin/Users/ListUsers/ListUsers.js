@@ -17,7 +17,26 @@ export default function ListUsers(props) {
     const [modalTitle, setModalTitle] = useState("");
     const [modalContent, setModalContent] = useState(null);
 
-    
+    const showDeleteConfirm = user => {
+        const accessToken = getAccessTokenApi();
+
+        ModalAntd.confirm({
+            title: "Eliminando usuario",
+            icon: <WarningOutlined />,
+            content: `¿Estas seguro que deseas eliminar a ${user.email}?`,
+            okText: 'Eliminar',
+            okType: "danger",
+            cancelText: 'Cancelar',
+            onOk(){
+                deleteUserApi(accessToken, user._id).then(response => {
+                    notification["success"]({message: response});
+                    setReloadUsers(true);
+                }).catch(err => {
+                    notification["error"]({message: err});
+                })
+            }
+        })
+    }    
 
     return (
         <div className="list-users">
@@ -27,8 +46,8 @@ export default function ListUsers(props) {
             </div>
 
             {viewUsersActive ? 
-            <UsersActive usersActive={usersActive} setIsVisibleModal={setIsVisibleModal} setModalTitle={setModalTitle} setModalContent={setModalContent} setReloadUsers={setReloadUsers} /> : 
-            <UsersInactive usersInactive={usersInactive} setReloadUsers={setReloadUsers} />}
+            <UsersActive usersActive={usersActive} setIsVisibleModal={setIsVisibleModal} setModalTitle={setModalTitle} setModalContent={setModalContent} setReloadUsers={setReloadUsers} showDeleteConfirm={showDeleteConfirm} /> : 
+            <UsersInactive usersInactive={usersInactive} setReloadUsers={setReloadUsers} showDeleteConfirm={showDeleteConfirm} />}
 
             <Modal title={modalTitle} isVisible={isVisibleModal} setIsVisible={setIsVisibleModal}>
                 {modalContent}
@@ -38,7 +57,7 @@ export default function ListUsers(props) {
 }
 
 function UsersActive(props) {
-    const {usersActive, setIsVisibleModal, setModalTitle, setModalContent, setReloadUsers} = props;
+    const {usersActive, setIsVisibleModal, setModalTitle, setModalContent, setReloadUsers, showDeleteConfirm} = props;
 
     const editUser = user => {
         setIsVisibleModal(true);
@@ -50,12 +69,12 @@ function UsersActive(props) {
             className="users-active"
             itemLayout="horizontal"
             dataSource={usersActive}
-            renderItem={user => <UserActive user={user} editUser={editUser} setReloadUsers={setReloadUsers} />}
+            renderItem={user => <UserActive user={user} editUser={editUser} setReloadUsers={setReloadUsers} showDeleteConfirm={showDeleteConfirm} />}
         />
     )
 }
 function UserActive(props){
-    const {user, editUser, setReloadUsers} = props;
+    const {user, editUser, setReloadUsers, showDeleteConfirm} = props;
     const [avatar, setAvatar] = useState(null);
 
     useEffect(() => {
@@ -79,32 +98,11 @@ function UserActive(props){
         })
     }
 
-    const showDeleteConfirm = () => {
-        const accessToken = getAccessTokenApi();
-
-        ModalAntd.confirm({
-            title: "Eliminando usuario",
-            icon: <WarningOutlined />,
-            content: `¿Estas seguro que deseas eliminar a ${user.email}?`,
-            okText: 'Eliminar',
-            okType: "danger",
-            cancelText: 'Cancelar',
-            onOk(){
-                deleteUserApi(accessToken, user._id).then(response => {
-                    notification["success"]({message: response});
-                    setReloadUsers(true);
-                }).catch(err => {
-                    notification["error"]({message: err});
-                })
-            }
-        })
-    }
-
     return (
         <List.Item actions={[
             <Button type="primary" onClick={() => editUser(user)} icon={<EditOutlined />} />,
             <Button type="danger" onClick={desactivateUser} icon={<StopOutlined />} />,
-            <Button type="danger" onClick={showDeleteConfirm} icon={<DeleteOutlined />} />
+            <Button type="danger" onClick={() => {showDeleteConfirm(user)}} icon={<DeleteOutlined />} />
         ]}>
             <List.Item.Meta 
                 avatar={<Avatar src={avatar ? avatar : noAvatar} />} 
@@ -116,19 +114,19 @@ function UserActive(props){
 }
 
 function UsersInactive(props) {
-    const {usersInactive, setReloadUsers} = props;
+    const {usersInactive, setReloadUsers, showDeleteConfirm} = props;
     
     return (
         <List
             className="users-active"
             itemLayout="horizontal"
             dataSource={usersInactive}
-            renderItem={user => <UserInactive user={user} setReloadUsers={setReloadUsers} />}
+            renderItem={user => <UserInactive user={user} setReloadUsers={setReloadUsers} showDeleteConfirm={showDeleteConfirm} />}
         />
     )
 }
 function UserInactive(props){
-    const {user, setReloadUsers} = props;
+    const {user, setReloadUsers, showDeleteConfirm} = props;
     const [avatar, setAvatar] = useState(null);
 
     useEffect(() => {
@@ -152,31 +150,10 @@ function UserInactive(props){
         })
     }
 
-    const showDeleteConfirm = () => {
-        const accessToken = getAccessTokenApi();
-
-        ModalAntd.confirm({
-            title: "Eliminando usuario",
-            icon: <WarningOutlined />,
-            content: `¿Estas seguro que deseas eliminar a ${user.email}?`,
-            okText: 'Eliminar',
-            okType: "danger",
-            cancelText: 'Cancelar',
-            onOk(){
-                deleteUserApi(accessToken, user._id).then(response => {
-                    notification["success"]({message: response});
-                    setReloadUsers(true);
-                }).catch(err => {
-                    notification["error"]({message: err});
-                })
-            }
-        })
-    }
-
     return (
         <List.Item actions={[
             <Button type="primary" onClick={activatedUser} icon={<CheckOutlined />} />,
-            <Button type="danger" onClick={showDeleteConfirm} icon={<DeleteOutlined />} />
+            <Button type="danger" onClick={() => {showDeleteConfirm(user)}} icon={<DeleteOutlined />} />
         ]}>
             <List.Item.Meta 
                 avatar={<Avatar src={avatar ? avatar : noAvatar} />} 
