@@ -3,7 +3,7 @@ import {Switch, List, Avatar, Button, notification, Modal as ModalAntd} from "an
 import {EditOutlined, StopOutlined, DeleteOutlined, CheckOutlined, WarningOutlined, UserAddOutlined} from "@ant-design/icons";
 import {noAvatar} from "../../../../assets/img";
 import Modal from "../../../Modal";
-import EditUserForm from "../EditUserForm";
+import EditUserForm from "../EditRegisterUserForm";
 import {getAvatarApi, activateUserApi, deleteUserApi} from "../../../../api/user";
 import {getAccessTokenApi} from "../../../../api/auth";
 
@@ -38,10 +38,10 @@ export default function ListUsers(props) {
         })
     }
 
-    const addUserModal = () => {
+    const addUserModal = user => {
         setIsVisibleModal(true);
         setModalTitle("Creando nuevo usuario");
-        setModalContent(<h1>Creando user</h1>);
+        setModalContent(<EditUserForm user={user} setIsVisibleModal={setIsVisibleModal} setReloadUsers={setReloadUsers} estado={true} />);
     }
 
     return (
@@ -71,7 +71,7 @@ function UsersActive(props) {
     const editUser = user => {
         setIsVisibleModal(true);
         setModalTitle(`Editar: ${user.name ? user.name : "..."} ${user.lastname ? user.lastname : "..."}`);
-        setModalContent(<EditUserForm user={user} setIsVisibleModal={setIsVisibleModal} setReloadUsers={setReloadUsers} />);
+        setModalContent(<EditUserForm user={user} setIsVisibleModal={setIsVisibleModal} setReloadUsers={setReloadUsers} estado={false} />);
     }
     return (
         <List

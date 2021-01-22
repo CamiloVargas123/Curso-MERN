@@ -1,15 +1,15 @@
 import React, {useState, useEffect, useCallback} from "react";
-import {Avatar, Form, Input, Select, Button, Row, Col, notification, Result} from "antd";
+import {Avatar, Form, Input, Select, Button, Row, Col, notification} from "antd";
 import {UserOutlined, MailOutlined, LockOutlined} from "@ant-design/icons";
 import {useDropzone} from "react-dropzone";
 import {getAccessTokenApi} from "../../../../api/auth";
-import {getAvatarApi, uploadAvatarApi, updateUserApi} from "../../../../api/user";
+import {getAvatarApi, uploadAvatarApi, updateUserApi, signUpApi} from "../../../../api/user";
 import {noAvatar} from "../../../../assets/img";
 
-import "./EditUserForm.scss";
+import "./EditRegisterUserForm.scss";
 
 export default function EditUserForm(props) {
-    const {user, setIsVisibleModal, setReloadUsers} = props;
+    const {user, setIsVisibleModal, setReloadUsers, estado} = props;
     const [avatar, setAvatar] = useState(null);
     const [userData, setUserData] = useState({});
 
@@ -39,7 +39,7 @@ export default function EditUserForm(props) {
         }
     }, [avatar]);
 
-    const updateUser = e => {
+    const updateUser = () => {
         const token = getAccessTokenApi();
         let userUpdate = userData;
 
@@ -75,10 +75,31 @@ export default function EditUserForm(props) {
         }
     }
 
+    const addUser = () => {      
+        const token = getAccessTokenApi();  
+        let userAdd = userData;
+        userAdd.active = true;
+        
+        if(!userAdd.name || !userAdd.lastname || !userAdd.email || !userAdd.role || !userAdd.password || !userAdd.repeatPassword){
+            notification["error"]({message: "Todos los campos son obligatorios"});
+        }
+        if(userAdd.password !== userAdd.repeatPassword){
+            notification["error"]({message: "Las contraseñas no coinciden"});
+        }else{
+            signUpApi(token, userAdd, "-admin").then(response => {
+                notification["success"]({message: "Usuario creado con exito"});
+                setIsVisibleModal(false);
+                setReloadUsers(true);
+            }).catch(err => {
+                notification["error"]({message: err.message});
+            });
+        }
+    }
+
     return (
         <div className="edit-user-form">
-            <UploadAvatar avatar={avatar} setAvatar={setAvatar} />
-            <EditForm userData={userData} setUserData={setUserData} updateUser={updateUser} />
+            {estado ? null : <UploadAvatar avatar={avatar} setAvatar={setAvatar} />}            
+            <EditForm userData={userData} setUserData={setUserData} updateUser={updateUser} addUser={addUser} estado={estado} />
         </div>
     )
 }
@@ -122,9 +143,9 @@ function UploadAvatar(props) {
 }
 
 function EditForm(props) {
-    const {userData, setUserData, updateUser} = props;
+    const {userData, setUserData, updateUser, addUser, estado} = props;
     return (
-        <Form className="form-edit" onSubmitCapture={updateUser} >
+        <Form className="form-edit" onSubmitCapture={estado ? addUser : updateUser} >
             <Row gutter={24}>
                 <Col span={12} >
                     <Form.Item>
@@ -141,12 +162,12 @@ function EditForm(props) {
             <Row gutter={24}>
                 <Col span={16} >
                     <Form.Item>
-                        <Input prefix={<MailOutlined />} placeholder="Correo" value={userData.email} onChange={e => setUserData({...userData, email: e.target.value})} />
+                        <Input type="email" prefix={<MailOutlined />} placeholder="Correo" value={userData.email} onChange={e => setUserData({...userData, email: e.target.value})} />
                     </Form.Item>
                 </Col>
                 <Col span={8} >
                     <Form.Item>
-                        <Select placeholder="Selecciona el rol" onChange={e => setUserData({...userData, role: e})} value={userData.role}>
+                        <Select placeholder="Rol" onChange={e => setUserData({...userData, role: e})} value={userData.role}>
                             <Select.Option value="admin">Administrador</Select.Option>
                             <Select.Option value="editor">Editor</Select.Option>
                             <Select.Option value="reviewr">Revisor</Select.Option>
@@ -170,7 +191,7 @@ function EditForm(props) {
 
             <Form.Item>
                 <Button type="primary" htmlType="submit" className="btn-submit" >
-                    Actualizar Usuario
+                    {estado ? "Crear Usuario" : "Actualizar Usuario"}
                 </Button>
             </Form.Item>
         </Form>

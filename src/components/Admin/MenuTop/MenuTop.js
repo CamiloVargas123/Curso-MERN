@@ -17,17 +17,17 @@ export default function MenuTop(props) {
 
     return (
         <div className="menu-top">
-            <div className="menu-top__left">
+            <div>
                 <Link to={"/admin"}>
                     <img 
-                    className="menu-top__left-logo"
+                    className="menu-top__logo"
                     src={logo1}
                     alt="Logo"
                     />
                 </Link>                
                 <Button icon={menuCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} onClick={() => setmenuCollapsed(!menuCollapsed)} />
             </div>
-            <div className="menu-top__right">
+            <div>
                 <Button icon={<PoweroffOutlined />} onClick={() => logoutUser()} />          
             </div>
         </div>
