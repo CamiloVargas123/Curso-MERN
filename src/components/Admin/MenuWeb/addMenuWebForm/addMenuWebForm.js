@@ -13,7 +13,7 @@ export default function AddMenuWebForm(props){
     const addMenu = () => {
         let finalData = {
             title: menuWebData.title,
-            url: (menuWebData.http ? menuWebData.http : "http://"+menuWebData.url)
+            url: (menuWebData.http ? menuWebData.http+menuWebData.url : "http://"+menuWebData.url)
         }
         
         if(!finalData.title || !finalData.url || !menuWebData.url){

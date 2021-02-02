@@ -1,11 +1,12 @@
-import Rect, {useState, useEffect} from "react";
-import {Switch, List, Button, Modal as ModalAndtd, notification} from "antd";
+import {useState, useEffect} from "react";
+import {Switch, List, Button, notification} from "antd";
 import {EditOutlined, DeleteOutlined} from "@ant-design/icons";
 import Modal from "../../../Modal";
 import DragSortableList from "react-drag-sortable";
 import {updateMenuApi, activateMenuApi} from "../../../../api/menu";
 import {getAccessTokenApi} from "../../../../api/auth";
 import AddMenuWebForm from "../addMenuWebForm";
+import EditMenuWebForm from "../EditMenuWebForm";
 
 import "./MenuWebList.scss";
 
@@ -21,7 +22,7 @@ export default function MenuWebList(props){
         const listItems = [];
         menu.forEach(item => {
             listItems.push({
-                content: (<MenuItem item={item} activateMenu={activateMenu} />)
+                content: (<MenuItem item={item} activateMenu={activateMenu} editMenuWebModal={editMenuWebModal} />)
             })
         });
         setListItems(listItems);
@@ -44,9 +45,16 @@ export default function MenuWebList(props){
         })
     }
     const addMenuWebModal = () =>  {
+        setReloadMenuWeb(true);
         setIsVisibleModal(true);
         setModalTitle("Creando menú");
         setModalContent(<AddMenuWebForm setIsVisibleModal={setIsVisibleModal} setReloadMenuWeb={setReloadMenuWeb} />)
+    }
+    const editMenuWebModal = menu => {
+        setReloadMenuWeb(true);
+        setIsVisibleModal(true);
+        setModalTitle(`Editando: ${menu.title}`);
+        setModalContent(<EditMenuWebForm setIsVisibleModal={setIsVisibleModal} setReloadMenuWeb={setReloadMenuWeb} menu={menu} />)
     }
 
     return (
@@ -57,7 +65,7 @@ export default function MenuWebList(props){
             <div className="menu-web-list__items">
                 <DragSortableList items={listItems} onSort={onSort} type="vertical" />
             </div>
-            <Modal title={modalTitle} isVisible={isVisibleModal} seIsVisible={setIsVisibleModal} >
+            <Modal title={modalTitle} isVisible={isVisibleModal} setIsVisible={setIsVisibleModal} >
                 {modalContent}
             </Modal>
         </div>
@@ -65,13 +73,13 @@ export default function MenuWebList(props){
 }
 
 function MenuItem(props){
-    const {item, activateMenu} = props;
+    const {item, activateMenu, editMenuWebModal} = props;
 
     return (
         <List>
         <List.Item actions={[
             <Switch defaultChecked={item.active} onChange={e => {activateMenu(item, e)}} />,
-            <Button type="primary" icon={<EditOutlined />} />,
+            <Button type="primary" icon={<EditOutlined />} onClick={() => editMenuWebModal(item)} />,
             <Button type="danger" icon={<DeleteOutlined />} />
         ]}>
             <List.Item.Meta title={item.title} description={item.url} />
