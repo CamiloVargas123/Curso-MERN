@@ -65,3 +65,16 @@ export function addMenuAPi(token, menu){
 
     return fetch(url, params).then(response => response.json()).then(result => result.message).catch(err => console.log(err));
 }
+
+export function deleteMenuApi(token, menuId){
+    const url = `${BASE_PATH}/${API_VERSION}/delete-menu/${menuId}`;
+    const params = {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: token
+        }
+    }
+
+    return fetch(url, params).then(response => response.json()).then(result => result.message).catch(err => console.log(err));
+}
