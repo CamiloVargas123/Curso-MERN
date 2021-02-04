@@ -2,28 +2,27 @@
 
 .menu-top-web{
     position: sticky;
-    top: 0;
     background-color: $background-dark-web;
     border: 0;
     display: flex;
     align-items: center;
     
+    &__logo {        
+        padding: 10px 0 !important;
+        margin-left: 0 !important;
+
+        img {
+            width: 200px;
+        }
+    }
 
     li {
+        top: 0 !important;
         border: none !important;
-
-        &:nth-child(2){
-            padding: 10px;
-            margin-left: 0 !important;
-        }
 
         a{
             color: #fff !important;
-            font-weight: bold;
-
-            img{
-                width: 200px;
-            }
+            font-weight: bold;            
 
             &:hover {
                 color: $primary-color !important;
