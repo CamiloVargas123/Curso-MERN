@@ -15,17 +15,19 @@ export default function LayoutBasic(props){
     
 
     return(
-        <Row>
+        <>
+            <Row>
             <Col lg={4} />
             <Col lg={16}>
-                <MenuTopWeb />
-                <LoadRoutes routes={routes} />
-                <Layout.Footer>
-                    copyrigh
-                </Layout.Footer>
+                <MenuTopWeb />                
             </Col>
             <Col lg={4} />
-        </Row>
+            </Row>
+            <LoadRoutes routes={routes} />
+            <Layout.Footer>
+                copyrigh
+            </Layout.Footer>
+        </>
     )
 }
 
