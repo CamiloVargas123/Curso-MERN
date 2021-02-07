@@ -26,22 +26,23 @@ export default function MenuTop(){
             <Menu.Item className="menu-top-web__logo">
                 <Link to={"/"}><img src={logo1} alt="Logotipo codesing" /></Link>
             </Menu.Item>
-
-            {menuData.map(item => {
-                const external = item.url.indexOf("http") > -1 ? true : false;
-                if(external){
+            <div className="menu-top-web__menu">
+                {menuData.map(item => {
+                    const external = item.url.indexOf("http") > -1 ? true : false;
+                    if(external){
+                        return(
+                            <Menu.Item key={item._id} className="menu-top-web__item">
+                                <a href={item.url} target="_blank" rel="noreferrer noopener"> {item.title} </a>
+                            </Menu.Item>
+                        )
+                    }
                     return(
                         <Menu.Item key={item._id} className="menu-top-web__item">
-                            <a href={item.url} target="_blank" rel="noreferrer noopener"> {item.title} </a>
+                            <Link to={item.url}> {item.title} </Link>
                         </Menu.Item>
-                    )
-                }
-                return(
-                    <Menu.Item key={item._id} className="menu-top-web__item">
-                        <Link to={item.url}> {item.title} </Link>
-                    </Menu.Item>
-                )            
-            })}            
+                    )            
+                })}
+            </div>      
 
             <SocialLinks />
         </Menu>
