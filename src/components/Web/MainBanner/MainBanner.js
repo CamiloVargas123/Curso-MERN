@@ -11,7 +11,7 @@ export default function MainBanner(){
                 <Col lg={4} />
                 <Col lg={16} >
                     <h2>Servicios  <br /> de Desarrollo Web</h2>
-                    <h3>En manos de buenos profesionales con satisfacion garantizada</h3>
+                    <h3>En manos de un buen profesional con satisfacion garantizada</h3>
                 </Col>
                 <Col lg={4} />
             </Row>
