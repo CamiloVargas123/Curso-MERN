@@ -1,7 +1,7 @@
 import React, {Suspense} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import routes from "./config/Router";
-import {LoadingOutlined} from "@ant-design/icons"
+import {LoadingOutlined} from "@ant-design/icons";
 
 import AuthProvider from "./providers/AuthProviders";
 
