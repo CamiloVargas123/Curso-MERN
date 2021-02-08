@@ -1,19 +1,21 @@
+import {lazy} from "react";
+
 //Layout
-import LayoutAdmin from "../layouts/LayoutAdmin";
-import LayoutBasic from "../layouts/LayoutBasic";
+const LayoutAdmin = lazy(() => import("../layouts/LayoutAdmin"));
+const LayoutBasic = lazy(() => import("../layouts/LayoutBasic"));
 
 //Admin pages
-import AdminHome from "../pages/admin";
-import AdminSingIn from "../pages/admin/SignIn";
-import AdminUsers from "../pages/admin/Users";
-import AdminMenuWeb from "../pages/admin/MenuWeb";
+const AdminHome = lazy(() => import("../pages/admin"));
+const AdminSingIn = lazy(() => import("../pages/admin/SignIn"));
+const AdminUsers = lazy(() => import("../pages/admin/Users"));
+const AdminMenuWeb = lazy(() => import("../pages/admin/MenuWeb"));
 
 //Pages
-import Home from "../pages/Home";
-import Contact from "../pages/Contact";
+const Home = lazy(() => import("../pages/Home"));
+const Contact = lazy(() => import("../pages/Contact"));
 
 // Other
-import Error404 from "../pages/Error404";
+const Error404 = lazy(() => import("../pages/Error404"));
 
 
 const router = [

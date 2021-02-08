@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Suspense} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import routes from "./config/Router";
 
@@ -12,11 +12,13 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <Switch>
-          {routes.map((route, index) => (
-            <RouteWithSubRoutes key={index} {...route} />
-          ))}
-        </Switch>
+        <Suspense fallback={<div>Loading page....</div>}>
+          <Switch>
+            {routes.map((route, index) => (
+              <RouteWithSubRoutes key={index} {...route} />
+            ))}
+          </Switch>
+        </Suspense>
       </Router>
     </AuthProvider>
   );

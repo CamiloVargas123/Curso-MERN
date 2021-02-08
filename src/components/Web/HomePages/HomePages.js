@@ -1,6 +1,5 @@
 import React from "react";
 import {Row, Col, Card, Button} from "antd";
-import {Link} from "react-router-dom";
 import {pages} from "../../../assets/img";
 
 import "./HomePages.scss";
