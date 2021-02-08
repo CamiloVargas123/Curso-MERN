@@ -11,15 +11,15 @@ export default function MySkills(){
             <Col lg={24} className="my-skills__title">
                 <h2>Mis habilidades</h2>
             </Col>
-            <Col lg={4} />
+            <Col lg={4} className="row" />
             <Col lg={16}>
-                <Row className="row-skills">
-                    <Col md={8}>
-                        <CardSkills title="HTML 5" description="Conocimiento Alto" />
+                <Row className="row row-skills">
+                    <Col md={6}>
+                        <CardSkills title="HTML 5" description="Nivel: Alto" />
                     </Col>
                 </Row>
             </Col>
-            <Col lg={4} />
+            <Col lg={4} className="row" />
         </Row>
     )
 }
@@ -28,8 +28,8 @@ function CardSkills(props){
     const {item, title, description} = props;
 
     return(
-        <Card className="my-skills__card">
-            <FontAwesomeIcon icon={faHtml5} />
+        <Card className="my-skills__card" cover={<FontAwesomeIcon icon={faHtml5} size="9x" className="html5" />}>
+            
             <Card.Meta title={title} description={description} />
         </Card>
     )
