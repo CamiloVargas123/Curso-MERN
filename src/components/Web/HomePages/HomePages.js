@@ -33,7 +33,7 @@ function CardPages(props){
     
     return(
         <a href={link} target="_blank" rel="noopener noreferrer">
-            <Card className="home-pages__card" cover={<img src={image} alt={"imagen de la pagina web "+title} />} actions={[
+            <Card className="home-pages__card" cover={<img loading="eager" src={image} alt={"imagen de la pagina web "+title} />} actions={[
                 <Button>VER PÁGINA</Button>
             ]}>
                 <Card.Meta title={title} description={subtitle} />

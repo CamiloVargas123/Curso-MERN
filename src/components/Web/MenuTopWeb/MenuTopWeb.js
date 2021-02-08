@@ -24,7 +24,7 @@ export default function MenuTop(){
     return(
         <Menu className="menu-top-web" mode="horizontal">
             <Menu.Item className="menu-top-web__logo">
-                <Link to={"/"}><img src={logo1} alt="Logotipo codesing" /></Link>
+                <Link to={"/"}><img loading="eager" src={logo1} alt="Logotipo codesing" /></Link>
             </Menu.Item>
             
             <div className="menu-top-web__vacio"></div>
