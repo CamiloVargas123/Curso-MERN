@@ -1,9 +1,10 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 import MenuTopWeb from "../components/Web/MenuTopWeb";
+import Footer from "../components/Web/Footer/Footer";
 
 //ant desing
-import {Layout, Row, Col} from "antd";
+import {Row, Col} from "antd";
 
 //SASS
 import "./LayoutBasic.scss";
@@ -24,9 +25,7 @@ export default function LayoutBasic(props){
             <Col lg={4} />
             </Row>
             <LoadRoutes routes={routes} />
-            <Layout.Footer>
-                copyrigh
-            </Layout.Footer>
+            <Footer />
         </>
     )
 }

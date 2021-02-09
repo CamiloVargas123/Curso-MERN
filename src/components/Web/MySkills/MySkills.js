@@ -31,7 +31,7 @@ export default function MySkills(){
                 <Row className="row row-skills">                    
                     {Myskills.map(skill => {
                         return(
-                            <Col md={6}>
+                            <Col md={6} key={skill.title}>
                                 <CardSkills title={skill.title} nivel={skill.nivel} icon={skill.icon}/>
                             </Col>
                         )
