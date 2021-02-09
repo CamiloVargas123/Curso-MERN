@@ -6,7 +6,7 @@
 
     &__title{
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         h2{
             color: $font-light;
             font-size: 32px;
@@ -16,6 +16,7 @@
     }
 
     .row{
+        padding: 20px 0;
         background-color: white;
     }
     .row-skills{
@@ -46,17 +47,18 @@
 
         .ant-card-meta{
             .ant-card-meta-title{
-                color:#000;
+                color:$background-dark-light-web;
                 font-size: 25px;
                 font-weight: bold;
             }
             .ant-card-meta-description{
-                color:#000;
+                color:$background-dark-light-web;
             }
         }
 
-        .html5{
-            color: #F16529;
+        .svgCover{
+            color: $background-dark-light-web;
+            padding: 0 15px !important;
         }
     }
 }
