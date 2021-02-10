@@ -12,6 +12,9 @@
     h4{
         color: white;
         text-align: justify;
+        @media (min-width: 1570px) {
+            text-align: center;
+        }
         span{
             color: $primary-color-hover;
         }

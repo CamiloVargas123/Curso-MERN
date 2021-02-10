@@ -13,11 +13,11 @@ export default function Footer(){
                 <Col md={4} />
                 <Col md={16}>
                     <Row>
-                        <Col md={6}></Col>
-                        <Col md={12}>
+                        <Col md={2}></Col>
+                        <Col md={20}>
                             <MyInfo />
                         </Col>                        
-                        <Col md={6}></Col>
+                        <Col md={2}></Col>
                     </Row>
                     <Row className="footer__copyright">
                         <Col md={12}>
