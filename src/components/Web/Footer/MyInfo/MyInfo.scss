@@ -1,0 +1,19 @@
+@import "../../../../scss/index.scss";
+
+.my-info {
+    padding: 0 10px;
+    &__logo{
+        margin: 0 auto 5px auto;
+        max-width: 395px;
+        img{
+            width: 100%;
+        }
+    }
+    h4{
+        color: white;
+        text-align: justify;
+        span{
+            color: $primary-color-hover;
+        }
+    }
+}

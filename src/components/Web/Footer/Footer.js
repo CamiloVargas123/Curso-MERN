@@ -2,6 +2,7 @@ import React from "react";
 import {Layout, Row, Col} from "antd";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCopyright} from "@fortawesome/free-solid-svg-icons";
+import MyInfo from "./MyInfo/MyInfo";
 
 import "./Footer.scss";
 
@@ -12,9 +13,11 @@ export default function Footer(){
                 <Col md={4} />
                 <Col md={16}>
                     <Row>
-                        <Col md={8}>Info</Col>
-                        <Col md={8}>Navegacion</Col>
-                        <Col md={8}>Neswletter</Col>
+                        <Col md={6}></Col>
+                        <Col md={12}>
+                            <MyInfo />
+                        </Col>                        
+                        <Col md={6}></Col>
                     </Row>
                     <Row className="footer__copyright">
                         <Col md={12}>
