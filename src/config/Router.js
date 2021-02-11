@@ -9,6 +9,7 @@ const AdminHome = lazy(() => import("../pages/admin"));
 const AdminSingIn = lazy(() => import("../pages/admin/SignIn"));
 const AdminUsers = lazy(() => import("../pages/admin/Users"));
 const AdminMenuWeb = lazy(() => import("../pages/admin/MenuWeb"));
+const AdminBlog = lazy(() => import("../pages/admin/Blog"));
 
 //Pages
 const Home = lazy(() => import("../pages/Home"));
@@ -42,6 +43,11 @@ const router = [
             {
                 path: "/admin/menu",
                 component: AdminMenuWeb,
+                exact: true
+            },
+            {
+                path: "/admin/blog",
+                component: AdminBlog,
                 exact: true
             },
             {
