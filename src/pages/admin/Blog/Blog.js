@@ -4,6 +4,7 @@ import {withRouter} from "react-router-dom"
 import queryString from "query-string";
 import Modal from "../../../components/Modal";
 import {getPostApi} from "../../../api/post";
+import PostsList from "../../../components/Admin/Blog/PostsLists";
 
 import "./Blog.scss";
 
@@ -16,10 +17,8 @@ function Blog(props){
     const [modalContent, setModalContent] = useState(null);
     const {page = 1} = queryString.parse(location.search);
     
-    console.log(posts);
-    
     useEffect(() => {
-        getPostApi(12, page).then(response => {
+        getPostApi(10, page).then(response => {
             if(response?.code !== 200){
                 notification["warning"]({message: response.message});
             }
@@ -30,6 +29,10 @@ function Blog(props){
         setReloadPosts(false);
     }, [page, reloadPosts])
 
+    if(!posts){
+        return null;
+    }
+
     return(
         <div className="blog">
             <div className="blog__add-post">
@@ -37,7 +40,7 @@ function Blog(props){
                     Nuevo Post
                 </Button>
             </div>
-            <h1>Post lists</h1>
+            <PostsList posts={posts} />
             <h2>pagination</h2>
             <Modal title={modalTitle} visible={isVisibleModal} setIsVisibleModal={setIsVisibleModal} width="75%" />
         </div>
