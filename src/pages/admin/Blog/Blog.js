@@ -5,6 +5,7 @@ import queryString from "query-string";
 import Modal from "../../../components/Modal";
 import {getPostApi} from "../../../api/post";
 import PostsList from "../../../components/Admin/Blog/PostsLists";
+import Pagination from "../../../components/Pagination/Pagination";
 
 import "./Blog.scss";
 
@@ -41,7 +42,7 @@ function Blog(props){
                 </Button>
             </div>
             <PostsList posts={posts} />
-            <h2>pagination</h2>
+            <Pagination posts={posts} location={location} history={history} />
             <Modal title={modalTitle} visible={isVisibleModal} setIsVisibleModal={setIsVisibleModal} width="75%" />
         </div>
     )
