@@ -31,3 +31,24 @@ export function deletePostApi(token, id){
         return err;
     })
 }
+
+export function addPostApi(token, post) {
+    const url = `${BASE_PATH}/${API_VERSION}/add-post`;
+
+    const params = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: token
+        },
+        body: JSON.stringify(post)
+    }
+
+    return fetch(url, params).then(response => {
+        return response.json();
+    }).then(result => {
+        return result;
+    }).catch(err => {
+        return err;
+    })
+}

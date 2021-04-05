@@ -23,8 +23,9 @@ function Blog(props){
         getPostApi(10, page).then(response => {
             if(response?.code !== 200){
                 notification["warning"]({message: response.message});
-            }
-            setPosts(response.posts)
+            }else{
+                setPosts(response.posts);
+            }            
         }).catch( () => {
             notification["error"]({message: "Error del servidor"});
         })

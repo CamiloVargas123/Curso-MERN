@@ -1,7 +1,7 @@
 import {lazy} from "react";
 
 //Layout
-const LayoutAdmin = lazy(() => import("../layouts/LayoutAdmin"));
+import LayoutAdmin from "../layouts/LayoutAdmin";
 const LayoutBasic = lazy(() => import("../layouts/LayoutBasic"));
 
 //Admin pages
