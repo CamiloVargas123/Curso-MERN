@@ -41,7 +41,7 @@ function Blog(props){
                     Nuevo Post
                 </Button>
             </div>
-            <PostsList posts={posts} />
+            <PostsList posts={posts} setReloadPosts={setReloadPosts} />
             <Pagination posts={posts} location={location} history={history} />
             <Modal title={modalTitle} visible={isVisibleModal} setIsVisibleModal={setIsVisibleModal} width="75%" />
         </div>
