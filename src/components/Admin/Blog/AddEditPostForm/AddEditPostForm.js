@@ -4,19 +4,20 @@ import { FontSizeOutlined, LinkOutlined } from "@ant-design/icons";
 import {Editor} from "@tinymce/tinymce-react";
 import moment from "moment";
 import {getAccessTokenApi} from "../../../../api/auth";
-import {addPostApi} from "../../../../api/post";
+import {addPostApi, updatePostApi} from "../../../../api/post";
 
 import "./AddEditPostForm.scss";
 
 export default function AddEditPostForm(props){
     const {setIsVisible, setReloadPosts, post} = props;
     const [postData, setPostData] = useState({});
-
+    
     useEffect(() => {
         if(post){
             setPostData(post);
-        }
-        setPostData({});
+        }else{
+            setPostData({});
+        }        
     }, [post]);
 
     const processPost = () => {
@@ -28,7 +29,7 @@ export default function AddEditPostForm(props){
             if(!post){
                 addPost();
             }else{
-                console.log("Editando post");
+                updatePost();
             }    
         }            
     }
@@ -37,7 +38,21 @@ export default function AddEditPostForm(props){
         const token = getAccessTokenApi();
 
         addPostApi(token, postData).then(response => {
-            const typeNotification = response.code == 200 ? "success" : "warning";
+            const typeNotification = response.code === 200 ? "success" : "warning";
+            notification[typeNotification]({message: response.message});
+            setIsVisible(false);
+            setReloadPosts(true);
+            setPostData({});
+        }).catch(() => {
+            notification["error"]({message: "Error del servidor"});
+        })
+    }
+
+    const updatePost = () => {
+        const token = getAccessTokenApi();
+
+        updatePostApi(token, post._id, postData).then(response => {
+            const typeNotification = response.code === 200 ? "success" : "warning";
             notification[typeNotification]({message: response.message});
             setIsVisible(false);
             setReloadPosts(true);
@@ -56,7 +71,7 @@ export default function AddEditPostForm(props){
 
 function AddEditForm(props) {
     const {postData, setPostData, post, processPost} = props;
-
+    
     return(
         <Form className="add-edit-post-form" layout="inline" onSubmitCapture={processPost}>
             <Row gutter={24}>
@@ -76,7 +91,7 @@ function AddEditForm(props) {
             </Row>
 
             <Editor
-                value={postData.description ? postData.description : ""}                
+                initialValue={postData.description ? postData.description : ""}                
                 init={{
                 height: 500,
                 menubar: true,
@@ -86,9 +101,9 @@ function AddEditForm(props) {
                     'insertdatetime media table paste code help wordcount'
                 ],
                 toolbar:
-                    'undo redo | formatselect | bold italic backcolor | \
-                    alignleft aligncenter alignright alignjustify | \
-                    bullist numlist outdent indent | removeformat | help'
+                    `undo redo | formatselect | bold italic backcolor | 
+                    alignleft aligncenter alignright alignjustify | 
+                    bullist numlist outdent indent | removeformat | help`
                 }}
                 onBlur={e => setPostData({...postData, description: e.target.getContent()})}
             />
