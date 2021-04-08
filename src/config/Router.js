@@ -14,6 +14,7 @@ const AdminBlog = lazy(() => import("../pages/admin/Blog"));
 //Pages
 const Home = lazy(() => import("../pages/Home"));
 const Contact = lazy(() => import("../pages/Contact"));
+const Blog = lazy(() => import("../pages/Blog"));
 
 // Other
 const Error404 = lazy(() => import("../pages/Error404"));
@@ -68,6 +69,16 @@ const router = [
             {
                 path: "/contact",
                 component: Contact,
+                exact: true
+            },
+            {
+                path: "/blog",
+                component: Blog,
+                exact: true
+            },
+            {
+                path: "/blog/:url",
+                component: Blog,
                 exact: true
             },
             {
