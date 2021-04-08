@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import moment from "moment";
 import queryString from "query-string";
 import Pagination from "../../../Pagination/Pagination";
-import {getPostApi} from "../../../../api/post";
+import {getPostsApi} from "../../../../api/post";
 import "moment/locale/es";
 
 import "./PostListWeb.scss";
@@ -15,7 +15,7 @@ export default function PostListWeb(props){
     const {page = 1} = queryString.parse(location.search);
     
     useEffect(() => {
-        getPostApi(10, page).then(response => {
+        getPostsApi(10, page).then(response => {
             if(response?.code !== 200){
                 notification["warning"]({message: response.message});
             }else{

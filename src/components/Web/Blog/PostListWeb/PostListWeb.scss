@@ -2,6 +2,7 @@
 
 .posts-list-web {
     margin: 50px 0;
+    
     h1 {
         text-align: center;
         color: $font-light;
@@ -14,7 +15,6 @@
 
             width: 100%;
             display: flex;
-            justify-content: start;
             align-items: center;
             .ant-list-item-meta-title{
                 color: $font-light;
