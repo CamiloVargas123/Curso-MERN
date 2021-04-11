@@ -1,6 +1,9 @@
-import React from "react";
+import React, {Suspense} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import routes from "./config/Router";
+import {LoadingOutlined} from "@ant-design/icons";
+
+import AuthProvider from "./providers/AuthProviders";
 
 
 import './App.scss';
@@ -8,13 +11,17 @@ import './App.scss';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        {routes.map((route, index) => (
-          <RouteWithSubRoutes key={index} {...route} />
-        ))}
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Suspense fallback={<IsLoading />} >
+          <Switch>
+            {routes.map((route, index) => (
+              <RouteWithSubRoutes key={index} {...route} />
+            ))}
+          </Switch>
+        </Suspense>
+      </Router>
+    </AuthProvider>
   );
 }
 
@@ -26,6 +33,14 @@ function RouteWithSubRoutes(route){
       render={props => <route.component routes={route.routes} {...props} />}
     />
   );
+}
+
+function IsLoading(){
+  return(
+    <div className="isloading">
+      <LoadingOutlined className="loading" style={{fontSize: 100}} />
+    </div>
+  )
 }
 
 export default App;

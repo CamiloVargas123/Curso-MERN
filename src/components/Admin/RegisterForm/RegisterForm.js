@@ -2,22 +2,24 @@ import React, {useState} from "react";
 import { Form, Input, Button, Checkbox, notification} from "antd";
 import {UserOutlined, LockOutlined } from '@ant-design/icons';
 import {emailValidation, minLengthValidation} from "../../../utils/formValidation";
-import {singUpApi} from "../../../api/user";
+import {signUpApi} from "../../../api/user";
 
-import "./RegisterForm.scss";
+import "../Form.scss";
 
 export default function RegisterForm() {
     const [inputs, setInputs] = useState({
         email: "",
         password: "",
         repeatPassword: "",
-        privacyPolity: false
+        privacyPolity: false,
+        active: false
     });
     const [formValid, setFormValid] = useState({
         email: false,
         password: false,
         repeatPassword: false,
-        privacyPolity: false
+        privacyPolity: false,
+        active: false
     })
 
     const changeForm = e => {
@@ -33,6 +35,7 @@ export default function RegisterForm() {
             })
         }
     }
+
     const inputValidation = e => {
         const {type, name} = e.target;
         if(type === "email"){
@@ -55,9 +58,8 @@ export default function RegisterForm() {
         }
     }
 
-    const register = e => {
+    const register = async e => {
         e.preventDefault();
-        const {email, password, repeatPassword, privacyPolity} = formValid;
 
         const emailValue = inputs.email;
         const passwordValue = inputs.password;
@@ -74,10 +76,39 @@ export default function RegisterForm() {
                     message: "Las contraseñas no coinciden"
                 })
             }else {
-                const result = singUpApi(inputs);
-                //console.log(inputs);
+                const result = await signUpApi(null, inputs, "");
+                if(!result){
+                    notification["error"]({
+                        message: "Email ya se encuentra en uso"
+                    })
+                }else{
+                    notification["success"]({
+                        message: "Usuario creado exitosamente"
+                    })
+                    resetForm();
+                }
             }
         }
+    }
+
+    const resetForm = () => {
+        const inputs = document.getElementsByTagName("input");
+        for(let input of inputs){
+            input.classList.remove("error");
+            input.classList.remove("success");
+        }
+        setInputs({
+            email: "",
+            password: "",
+            repeatPassword: "",
+            privacyPolity: false
+        })
+        setFormValid({
+            email: false,
+            password: false,
+            repeatPassword: false,
+            privacyPolity: false
+        })
     }
 
     return (

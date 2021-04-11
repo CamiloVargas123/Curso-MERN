@@ -1,17 +1,23 @@
+import {lazy} from "react";
+
 //Layout
 import LayoutAdmin from "../layouts/LayoutAdmin";
-import LayoutBasic from "../layouts/LayoutBasic";
+const LayoutBasic = lazy(() => import("../layouts/LayoutBasic"));
 
 //Admin pages
-import AdminHome from "../pages/admin";
-import AdminSingIn from "../pages/admin/SignIn";
+const AdminHome = lazy(() => import("../pages/admin"));
+const AdminSingIn = lazy(() => import("../pages/admin/SignIn"));
+const AdminUsers = lazy(() => import("../pages/admin/Users"));
+const AdminMenuWeb = lazy(() => import("../pages/admin/MenuWeb"));
+const AdminBlog = lazy(() => import("../pages/admin/Blog"));
 
 //Pages
-import Home from "../pages/Home";
-import Contact from "../pages/Contact";
+const Home = lazy(() => import("../pages/Home"));
+const Contact = lazy(() => import("../pages/Contact"));
+const Blog = lazy(() => import("../pages/Blog"));
 
 // Other
-import Error4040 from "../pages/Error404";
+const Error404 = lazy(() => import("../pages/Error404"));
 
 
 const router = [
@@ -31,7 +37,22 @@ const router = [
                 exact: true
             },
             {
-                component: Error4040
+                path: "/admin/users",
+                component: AdminUsers,
+                exact: true
+            },
+            {
+                path: "/admin/menu",
+                component: AdminMenuWeb,
+                exact: true
+            },
+            {
+                path: "/admin/blog",
+                component: AdminBlog,
+                exact: true
+            },
+            {
+                component: Error404
             }
         ]
     },
@@ -51,7 +72,17 @@ const router = [
                 exact: true
             },
             {
-                component: Error4040
+                path: "/blog",
+                component: Blog,
+                exact: true
+            },
+            {
+                path: "/blog/:url",
+                component: Blog,
+                exact: true
+            },
+            {
+                component: Error404
             }
         ]
     }

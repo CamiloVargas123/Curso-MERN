@@ -1,0 +1,43 @@
+@import "../../../scss/index.scss";
+.ant-col{
+    width: 100%;
+}
+.menu-top-web{
+    position: sticky;
+    background-color: $background-dark-web;
+    border: 0;
+    display: flex;
+    align-items: center;
+    @media (max-width: 992px) {
+        margin: 0 10px;
+    }
+    
+    &__logo {        
+        padding: 10px 0 !important;
+        margin-left: 0 !important;
+
+        img {
+            width: 200px;
+        }
+    }
+
+    &__vacio{
+        width: 100%;
+    }
+
+    li {
+        top: 0 !important;
+        border: none !important;
+
+        a{
+            color: #fff !important;
+            font-weight: bold;            
+
+            &:hover {
+                color: $primary-color !important;
+            }
+        }
+    }
+
+    
+}

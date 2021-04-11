@@ -3,15 +3,13 @@
 .menu-top {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    padding: 0 10px;
 
-    &__left {
-        display: flex;
-        align-items: center;
-
-        &-logo {
-            width: 200px;
-            padding: 0 10px;
-        }
+    &__logo {
+        width: 200px;
+        padding: 0 10px;
     }
 
     button {
@@ -29,10 +27,5 @@
             outline: none;
             background-color: transparent;
         }
-    }
-
-    &__right  {
-        position: absolute;
-        right: 0;
     }
 }
