@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import { Button } from "antd";
-import {MenuFoldOutlined, MenuUnfoldOutlined, PoweroffOutlined, HomeOutlined} from '@ant-design/icons';
+import {MenuFoldOutlined, MenuUnfoldOutlined, PoweroffOutlined} from '@ant-design/icons';
 import {logo1} from "../../../assets/img/index";
 import {logout} from "../../../api/auth";
 

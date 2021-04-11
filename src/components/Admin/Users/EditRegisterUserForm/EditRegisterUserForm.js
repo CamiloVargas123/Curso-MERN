@@ -36,7 +36,7 @@ export default function EditUserForm(props) {
     useEffect(() => {
         if(avatar){
             setUserData({...userData, avatar: avatar.file})
-        }
+        }      
     }, [avatar]);
 
     const updateUser = () => {
