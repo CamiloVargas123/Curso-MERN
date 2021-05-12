@@ -45,7 +45,7 @@ export default function LoginForm() {
                     prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
                     type="email"
                     name="email"
-                    placeholder="Correo electronico"
+                    placeholder="prueba@gmail.com"
                     className="login-form__input"
                 />
             </Form.Item>
@@ -54,7 +54,7 @@ export default function LoginForm() {
                     prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
                     type="password"
                     name="password"
-                    placeholder="Contraseña"
+                    placeholder="prueba"
                     className="login-form__input"
                 />
             </Form.Item>

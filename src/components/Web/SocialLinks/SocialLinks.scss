@@ -11,9 +11,12 @@
         padding: 5px 8px;
         border-radius: 5px;
 
-        &.facebook{
-            color: #fff;
-            background-color: $facebook;
+        &.linkedin{
+            color: #FFF;
+            background-color: #0e76a8;
+            svg {
+                color: #fff;
+            }
         }
         &.github{
             color: $github;

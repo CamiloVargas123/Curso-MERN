@@ -2,18 +2,21 @@
 
 .post-info{
     margin-top: 50px;
+    padding: 20px;
+    background-color: #FFF;
+    border-radius: 10px;
 
     &__title{
         text-align: center;
         margin-bottom: 0;
-        color: $font-light;
+        color: $font-grey-dark;
         font-weight: bold;
         font-size: 40px;
     }
 
     &__creation-date{
         text-align: center;
-        color: $font-light;
+        color: $font-grey-dark;
         width: 100%;
         margin-bottom: 30px;
     }
